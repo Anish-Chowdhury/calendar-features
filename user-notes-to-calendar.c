@@ -1,18 +1,23 @@
 #include <stdio.h>
-int main(){
-    int start;
-    printf("Enter ret --> ");
-    scanf("%d", &start);
+int input = 2;
+
+/*
+
+    *try implimenting tree in file indexing 
+    **currently running on normal file indexing
+
+*/
+void display_calendar(){
     int j = 1;
     printf("|SU||MO||TU||WE||TH||FR||SA|\n");
     //for loop for blank spaces 
-    if (start <= 7)
+    if (input <= 7)
     {
-        for (int i = 1; i < start; i++)
+        for (int i = 1; i < input; i++)
         {
             printf("%4s", " ");
         }
-        j = start;
+        j = input;
     }
     
 
@@ -29,5 +34,13 @@ int main(){
         j=1;
     }
     
+}
+
+
+
+int main(){
+    FILE *note_handel = fopen("date-note-handel.txt", "rb+");
+    display_calendar();
+
     return 0;
 }

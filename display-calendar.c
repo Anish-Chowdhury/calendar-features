@@ -1,0 +1,37 @@
+#include <stdio.h>
+void display_calendar(int );
+int main(){
+    int start;
+    printf("Enter ret --> ");
+    scanf("%d", &start);
+    display_calendar(start);
+    return 0;
+}
+void display_calendar(int input){
+    int j = 1;
+    printf("|SU||MO||TU||WE||TH||FR||SA|\n");
+    //for loop for blank spaces 
+    if (input <= 7)
+    {
+        for (int i = 1; i < input; i++)
+        {
+            printf("%4s", " ");
+        }
+        j = input;
+    }
+    
+
+
+     int i = 1, count = 31;
+
+    for (; i <= count;)
+    {
+        for (; (j <= 7) && ( i <= count); j++,i++)
+        {
+            printf("|%2d|", i);
+        }
+        printf("\n"); 
+        j=1;
+    }
+    
+}
