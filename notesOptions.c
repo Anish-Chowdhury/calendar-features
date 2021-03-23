@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#define FILE_HANDEL FILE *record_file = fopen("calendar-notes.txt", "rb+")
+#define FLUSH fflush(stdin)
+#define FILE_HANDEL FILE *record_file = fopen("calendar-notes.bin", "rb+")
 
 #pragma pack(1)
 typedef struct noteHandel {
@@ -14,34 +15,50 @@ typedef struct noteHandel {
 
 void appendNote(int, int,int , char *);
 void deleteNote(int, int , int );
-int totalNoteCount(FILE *);
+int totalNotesCount(FILE *);
 void tempDisplayNotes();
 
 int main(){
     int date, month, year;
     char text[100];
+    FLUSH;
+    printf("Enter Note Details [DD <enter key> MM <enter key> YYYY]: ");
+    scanf("%d", &date);
+    FLUSH;
+    scanf("%d", &month);
+    FLUSH;
+    scanf("%d", &year);
 
-    printf("Enter Note Details [DD<space>MM<space>YYYY]: ");
-    scanf("%d %d %d ", &date, &month, &year);
-
+    FLUSH;
     printf("Enter Note : ");
-    fgets(text, sizeof(text), stdin);
+    gets(text);
 
     appendNote(date, month, year, text);
-
+/* 
+FLUSH;
      printf("Enter Note Details [DD<space>MM<space>YYYY]: ");
-    scanf("%d %d %d ", &date, &month, &year);
-
+    scanf("%d", &date);
+    FLUSH;
+    scanf("%d", &month);
+    FLUSH;
+    scanf("%d", &year);
+FLUSH;
     printf("Enter Note : ");
-    fgets(text, sizeof(text), stdin);
+    gets(text);
     appendNote(date, month, year, text);
 
+FLUSH;
      printf("Enter Note Details [DD<space>MM<space>YYYY]: ");
-    scanf("%d %d %d ", &date, &month, &year);
+    scanf("%d", &date);
+    FLUSH;
+    scanf("%d", &month);
+    FLUSH;
+    scanf("%d", &year);
+FLUSH;
 
     printf("Enter Note : ");
-    fgets(text, sizeof(text), stdin);
-    appendNote(date, month, year, text);
+    gets(text);
+    appendNote(date, month, year, text); */ 
     tempDisplayNotes();
     return 0;
 
@@ -49,14 +66,14 @@ int main(){
 }
 
 void appendNote(int date, int month, int year, char * text){
-    FILE_HANDEL;
     noteStruct note;
     note.date = date;
     note.month = month;
     note.year = year;
     strcpy(note.note, text);
+    FILE_HANDEL;
     fseek(record_file, 0, SEEK_END);
-    int ret = fwrite(&note, sizeof(note), 1, record_file);
+    fwrite(&note, sizeof(note), 1, record_file);
     fclose(record_file);
 }
 
@@ -65,7 +82,7 @@ void deleteNote(int date, int month, int year){
     int totalNotes = totalNotesCount(record_file);
     noteStruct notes[totalNotes];
     fseek(record_file, 0, SEEK_SET);
-    fread(&notes, sizeof(notes), 1, record_file);   //might trigger a BUG
+    fread(&notes, sizeof(notes), 1, record_file);
     int current = 0;
     int temp;
     while (current <= totalNotes)
@@ -104,6 +121,7 @@ void tempDisplayNotes(){
     noteStruct note[noteCount];
     fseek(record_file, 0, SEEK_SET);
     fread(&note, sizeof(note), 1, record_file);
+    
     for (int i = 0; i < noteCount; i++)
     {
         printf("date -- %d/%d/%d \n", note[i].date, note[i].month, note[i].year);
@@ -114,5 +132,5 @@ void tempDisplayNotes(){
 
 int totalNotesCount(FILE *file){
     fseek(file, 0, SEEK_END);
-    return (ftell(file));
+    return (((ftell(file)) / sizeof(noteStruct)));
 }
