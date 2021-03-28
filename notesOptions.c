@@ -109,3 +109,7 @@ int totalNotesCount(FILE *file){
     fseek(file, 0, SEEK_END);
     return (((ftell(file)) / sizeof(noteStruct)));
 }
+
+void display_notes(int, int, int ){
+    
+}

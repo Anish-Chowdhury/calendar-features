@@ -1,4 +1,5 @@
 #include "notesOptions.c"
+#include <conio.h>
 
 
 int main(){
@@ -30,6 +31,7 @@ int main(){
         printf("\n"); 
         j=1;
     }
+
     
     return 0;
 }
