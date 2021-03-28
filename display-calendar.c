@@ -1,5 +1,7 @@
-#include <stdio.h>
-void display_calendar(int );
+#include "notesOptions.c"
+#include <conio.h>
+
+
 int main(){
     int start;
     printf("Enter ret --> ");
@@ -20,9 +22,9 @@ void display_calendar(int input){
         j = input;
     }
     
+    
 
-
-     int i = 1, count = 31;
+    int i = 1, count = 31;
 
     for (; i <= count;)
     {
@@ -33,5 +35,6 @@ void display_calendar(int input){
         printf("\n"); 
         j=1;
     }
+
     
 }
