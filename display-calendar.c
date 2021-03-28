@@ -6,16 +6,20 @@ int main(){
     int start;
     printf("Enter ret --> ");
     scanf("%d", &start);
+    display_calendar(start);
+    return 0;
+}
+void display_calendar(int input){
     int j = 1;
     printf("|SU||MO||TU||WE||TH||FR||SA|\n");
     //for loop for blank spaces 
-    if (start <= 7)
+    if (input <= 7)
     {
-        for (int i = 1; i < start; i++)
+        for (int i = 1; i < input; i++)
         {
             printf("%4s", " ");
         }
-        j = start;
+        j = input;
     }
     
     
@@ -33,5 +37,4 @@ int main(){
     }
 
     
-    return 0;
 }
